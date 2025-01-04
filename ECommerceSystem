@@ -1,1 +1,84 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class ECommerceSystem {
+
+    public static void main(String[] args) {
+        // Initialize Admins
+        Admin admin1 = new Admin(1, "Aidar", "aidar@example.com");
+        Admin admin2 = new Admin(2, "Dana", "dana@example.com");
+
+        // Initialize Customers
+        Customer customer1 = new Customer(1, "Aibek", "aibek@example.com", "123 Qabanbay Batyr Street");
+        Customer customer2 = new Customer(2, "Gulzhan", "gulzhan@example.com", "456 Al-Farabi Avenue");
+        Customer customer3 = new Customer(3, "Zhanar", "zhanar@example.com", "789 Abai Street");
+        Customer customer4 = new Customer(4, "Askar", "askar@example.com", "321 Satpayev Avenue");
+        Customer customer5 = new Customer(5, "Aruzhan", "aruzhan@example.com", "654 Nazarbayev Avenue");
+
+        // Initialize Products
+        Product product1 = new Product("P001", "Laptop", 800.00, 10);
+        Product product2 = new Product("P002", "Smartphone", 500.00, 20);
+        Product product3 = new Product("P003", "Headphones", 50.00, 30);
+        Product product4 = new Product("P004", "Keyboard", 30.00, 15);
+        Product product5 = new Product("P005", "Mouse", 20.00, 25);
+        Product product6 = new Product("P006", "Monitor", 150.00, 8);
+        Product product7 = new Product("P007", "Charger", 25.00, 50);
+        Product product8 = new Product("P008", "USB Cable", 10.00, 100);
+        Product product9 = new Product("P009", "Webcam", 70.00, 12);
+        Product product10 = new Product("P010", "External Hard Drive", 120.00, 5);
+
+        // Admin adds products to the system
+        admin1.addProduct(product1);
+        admin1.addProduct(product2);
+        admin1.addProduct(product3);
+        admin1.addProduct(product4);
+        admin1.addProduct(product5);
+        admin2.addProduct(product6);
+        admin2.addProduct(product7);
+        admin2.addProduct(product8);
+        admin2.addProduct(product9);
+        admin2.addProduct(product10);
+
+        // Display all products
+        System.out.println("\n--- Product List ---");
+        admin1.getProducts().forEach(Product::displayDetails);
+        admin2.getProducts().forEach(Product::displayDetails);
+
+        // Customers place orders
+        System.out.println("\n--- Placing Orders ---");
+        customer1.placeOrder(product1, 2); // Successful
+        customer2.placeOrder(product6, 10); // Insufficient stock
+        customer3.placeOrder(product3, 5);
+        customer4.placeOrder(product5, 10);
+        customer5.placeOrder(product7, 1);
+
+        // Customer cancels an order
+        System.out.println("\n--- Canceling an Order ---");
+        List<Order> customer1Orders = customer1.getOrders();
+        if (!customer1Orders.isEmpty()) {
+            customer1.cancelOrder(customer1Orders.get(0));
+        }
+
+        // Admin updates stock for a product
+        System.out.println("\n--- Updating Stock ---");
+        admin2.updateStock("P006", 20); // Update Monitor stock
+
+        // Admin removes a product
+        System.out.println("\n--- Removing a Product ---");
+        admin1.removeProduct("P004"); // Remove Keyboard
+
+        // Display all users
+        System.out.println("\n--- Displaying All Users ---");
+        System.out.println("Admins:");
+        admin1.displayDetails();
+        admin2.displayDetails();
+
+        System.out.println("\nCustomers:");
+        customer1.displayDetails();
+        customer2.displayDetails();
+        customer3.displayDetails();
+        customer4.displayDetails();
+        customer5.displayDetails();
+    }
+}
 
