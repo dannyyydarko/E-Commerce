@@ -1,1 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Customer extends User {
+    private List<Order> orders;
+    private String shippingAddress;
+
+    // Constructor
+    public Customer(int userId, String name, String email, String shippingAddress) {
+        super(userId, name, email);
+        this.orders = new ArrayList<>();
+        this.shippingAddress = shippingAddress;
+    }
+
+    // Place Order
+    public void placeOrder(Product product, int quantity) {
+        if (product.getStock() >= quantity) {
+            Order order = new Order(this, product, quantity);
+            orders.add(order);
+            product.reduceStock(quantity);
+            System.out.println("Order placed successfully!");
+        } else {
+            System.out.println("Insufficient stock for product: " + product.getName());
+        }
+    }
+
+    // Cancel Order
+    public void cancelOrder(Order order) {
+        if (orders.contains(order)) {
+            order.cancelOrder();
+            orders.remove(order);
+            System.out.println("Order cancelled successfully!");
+        } else {
+            System.out.println("Order not found.");
+        }
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("Customer ID: " + getUserId());
+        System.out.println("Name: " + getName());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Shipping Address: " + shippingAddress);
+    }
+}
 
